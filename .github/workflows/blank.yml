@@ -24,6 +24,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: pull
         run: |
           git clone https://github.com/jellyfin/jellyfin-packaging.git
