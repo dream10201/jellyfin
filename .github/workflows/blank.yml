@@ -28,7 +28,6 @@ jobs:
         uses: actions/checkout@v4
       - name: pull
         run: |
-          ls -lR
           git clone https://github.com/jellyfin/jellyfin-packaging.git
           cd jellyfin-packaging
           git submodule update --init
