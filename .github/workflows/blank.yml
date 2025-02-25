@@ -30,10 +30,13 @@ jobs:
         run: |
           ls -lR
           git clone https://github.com/jellyfin/jellyfin-packaging.git
-          mv jellyfin-packaging/docker/Dockerfile jellyfin-packaging/
-          sed -i '/EXPOSE 8096/a RUN bash /run.sh' jellyfin-packaging/Dockerfile
-          sed -i '/EXPOSE 8096/a COPY run.sh /run.sh' jellyfin-packaging/Dockerfile
-          mv run.sh jellyfin-packaging/
+          cd jellyfin-packaging
+          git submodule update --init
+          mv docker/Dockerfile ./
+          sed -i '/EXPOSE 8096/a RUN bash /run.sh' Dockerfile
+          sed -i '/EXPOSE 8096/a COPY run.sh /run.sh' Dockerfile
+          mv ../run.sh ./
+          cd ..
       - name: Release and push
         if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: docker/build-push-action@v6
